@@ -46,7 +46,7 @@ export default function Navbar() {
 
         {/* Mobile Menu */}
         {isOpen && (
-          <div className="md:hidden space-y-2 p-4 bg-gray-800">
+          <div className="md:hidden space-x-3 p-4 bg-gray-800">
             {session ? (
               <>
                 <Link href="/" className="hover:text-blue-400 cursor-pointer">Home</Link>
