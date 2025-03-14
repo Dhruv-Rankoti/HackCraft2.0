@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, LineChart, Line } from "recharts";
 
 export default function Dashboard() {
-  const { session, loading } = useSessionContext(); // ✅ Ensure session is loaded before fetching data
+  const { session, loading } = useSessionContext(); // Ensure session is loaded before fetching data
   const router = useRouter();
 
   const [sentimentData, setSentimentData] = useState([]);
@@ -24,7 +24,7 @@ export default function Dashboard() {
       fetchSentimentData();
       fetchTrendData();
     }
-  }, [session]); // ✅ Fetch data only after session is available
+  }, [session]); // Fetch data only after session is available
 
   const fetchSentimentData = async () => {
     try {
@@ -50,7 +50,7 @@ export default function Dashboard() {
     }
   };
 
-  if (loading || dataLoading) return <p>Loading...</p>; // ✅ Show loading state until data is fetched
+  if (loading || dataLoading) return <p>Loading...</p>; // Show loading state until data is fetched
 
   return (
     <div className="p-6">

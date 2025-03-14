@@ -6,14 +6,14 @@ import { useRouter } from "next/navigation";
 
 export default function Login() {
   const router = useRouter();
-  const { session, login, loading } = useSessionContext(); // ✅ Use `login()` instead of `signIn()`
+  const { session, login, loading } = useSessionContext(); // Use `login()` instead of `signIn()`
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
 
   useEffect(() => {
     if (!loading && session) {
-      setTimeout(() => router.push("/dashboard"), 2000); // ✅ Redirect after login
+      setTimeout(() => router.push("/dashboard"), 2000); // Redirect after login
     }
   }, [session, loading, router]);
 
@@ -21,7 +21,7 @@ export default function Login() {
     e.preventDefault();
     setError(null);
 
-    const result = await login(email, password); // ✅ Use `login()` from SessionWrapper
+    const result = await login(email, password); // Use `login()` from SessionWrapper
     if (result.error) {
       setError(result.error);
     }
