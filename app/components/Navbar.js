@@ -23,10 +23,8 @@ export default function Navbar() {
             {session ? (
               <>
                 <Link href="/" className="hover:text-blue-400 cursor-pointer">Home</Link>
-                <Link href="/about" className="hover:text-blue-400">About</Link>
                 <Link href="/dashboard" className="hover:text-blue-400 cursor-pointer">Dashboard</Link>
                 <Link href="/feedback" className="hover:text-blue-400">Feedback</Link>
-                <Link href="/contact" className="hover:text-blue-400">Contact</Link>
                 <button onClick={logout} className="hover:text-red-400 cursor-pointer">Logout</button>
               </>
             ) : (
@@ -52,10 +50,8 @@ export default function Navbar() {
             {session ? (
               <>
                 <Link href="/" className="hover:text-blue-400 cursor-pointer">Home</Link>
-                <Link href="/about" className="hover:text-blue-400">About</Link>
                 <Link href="/dashboard" className="hover:text-blue-400 cursor-pointer">Dashboard</Link>
                 <Link href="/feedback" className="hover:text-blue-400">Feedback</Link>
-                <Link href="/contact" className="hover:text-blue-400">Contact</Link>
                 <button onClick={logout} className="hover:text-red-400 cursor-pointer">Logout</button>
               </>
             ) : (
