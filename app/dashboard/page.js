@@ -6,51 +6,44 @@ import { useEffect, useState } from "react";
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, LineChart, Line } from "recharts";
 
 export default function Dashboard() {
-  const { session, loading } = useSessionContext(); // Ensure session is loaded before fetching data
+  const { session, loading } = useSessionContext();
   const router = useRouter();
-
   const [sentimentData, setSentimentData] = useState([]);
   const [trendData, setTrendData] = useState([]);
   const [dataLoading, setDataLoading] = useState(true);
 
   useEffect(() => {
     if (!loading && !session) {
-      router.push("/login");
+      router.push("/login"); // ✅ Redirect if user is not logged in
     }
   }, [session, loading, router]);
 
   useEffect(() => {
     if (session) {
-      fetchSentimentData();
-      fetchTrendData();
+      fetchData();
     }
-  }, [session]); // Fetch data only after session is available
+  }, [session]); // ✅ Fetch data only after session is available
 
-  const fetchSentimentData = async () => {
+  const fetchData = async () => {
+    setDataLoading(true);
     try {
-      const response = await fetch("/api/sentiment-stats");
-      const data = await response.json();
-      setSentimentData(data);
-      setDataLoading(false);
+      const [sentimentResponse, trendResponse] = await Promise.all([
+        fetch("/api/sentiment-stats"),
+        fetch("/api/trends"),
+      ]);
+
+      const sentimentJson = await sentimentResponse.json();
+      const trendJson = await trendResponse.json();
+
+      setSentimentData(sentimentJson);
+      setTrendData(trendJson);
     } catch (error) {
-      console.error("Error fetching sentiment data:", error);
-      setDataLoading(false);
+      console.error("Error fetching dashboard data:", error);
     }
+    setDataLoading(false);
   };
 
-  const fetchTrendData = async () => {
-    try {
-      const response = await fetch("/api/trends");
-      const data = await response.json();
-      setTrendData(data);
-      setDataLoading(false);
-    } catch (error) {
-      console.error("Error fetching trend data:", error);
-      setDataLoading(false);
-    }
-  };
-
-  if (loading || dataLoading) return <p>Loading...</p>; // Show loading state until data is fetched
+  if (loading || dataLoading) return <p className="text-center text-lg">Loading Dashboard...</p>; // ✅ Prevents flickering
 
   return (
     <div className="p-6">
@@ -69,7 +62,7 @@ export default function Dashboard() {
             </BarChart>
           </ResponsiveContainer>
         ) : (
-          <p className="text-gray-500 text-center">No data available</p>
+          <p className="text-gray-500 text-center">No sentiment data available</p>
         )}
       </div>
 

@@ -1,16 +1,27 @@
-"use client"; // Required for Next.js App Router
+"use client";
 
-import { useState } from "react";
+import { useSessionContext } from "../components/SessionWrapper";
+import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 
 export default function Feedback() {
+  const { session, loading } = useSessionContext();
+  const router = useRouter();
   const [feedback, setFeedback] = useState("");
   const [result, setResult] = useState(null);
-  const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [loadingFeedback, setLoadingFeedback] = useState(false);
+
+  // ✅ Redirect to login if user is not authenticated
+  useEffect(() => {
+    if (!loading && !session) {
+      router.push("/login");
+    }
+  }, [session, loading, router]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setLoading(true);
+    setLoadingFeedback(true);
     setError(null);
 
     try {
@@ -30,8 +41,10 @@ export default function Feedback() {
       setError("Error analyzing feedback. Please try again.");
     }
 
-    setLoading(false);
+    setLoadingFeedback(false);
   };
+
+  if (loading || !session) return <p>Loading...</p>; // ✅ Prevents flickering before redirection
 
   return (
     <div className="flex flex-col items-center p-6 min-h-screen bg-gray-100">
@@ -50,9 +63,9 @@ export default function Feedback() {
         <button
           type="submit"
           className="mt-4 w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-md"
-          disabled={loading}
+          disabled={loadingFeedback}
         >
-          {loading ? "Analyzing..." : "Analyze Feedback"}
+          {loadingFeedback ? "Analyzing..." : "Analyze Feedback"}
         </button>
       </form>
 
