@@ -23,13 +23,13 @@ export default function Login() {
         success("Login successful!");
         sessionStorage.setItem("loginSuccess", "true"); // ✅ Prevent duplicate notifications
       }
-  
+
       setTimeout(() => {
         router.replace("/dashboard");
       }, 500);
     }
   }, [session, sessionLoading, router, success]);
-  
+
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -76,8 +76,8 @@ export default function Login() {
                 <label htmlFor="email" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                   Email Address
                 </label>
-                <div className="relative">
-                  <Mail className="absolute inset-y-0 left-0 pl-3 h-5 w-5 text-gray-400" />
+                <div className="relative flex items-center">
+                  <Mail className="absolute left-3 h-5 w-5 text-gray-400" />
                   <input
                     id="email"
                     type="email"
@@ -94,8 +94,8 @@ export default function Login() {
                 <label htmlFor="password" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                   Password
                 </label>
-                <div className="relative">
-                  <Lock className="absolute inset-y-0 left-0 pl-3 h-5 w-5 text-gray-400" />
+                <div className="relative flex items-center">
+                  <Lock className="absolute left-3 h-5 w-5 text-gray-400" />
                   <input
                     id="password"
                     type="password"
@@ -107,6 +107,7 @@ export default function Login() {
                   />
                 </div>
               </div>
+
 
               <button
                 type="submit"

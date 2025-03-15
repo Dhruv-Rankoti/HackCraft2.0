@@ -76,9 +76,9 @@ export default function Feedback() {
 
   return (
     <div className="max-w-7xl mx-auto p-6 min-h-screen">
-      <div className="text-center mb-10">
-        <h1 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">AI Feedback Analyzer</h1>
-        <p className="text-lg text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
+      <div className="text-center mb-10 text-white">
+        <h1 className="text-3xl md:text-4xl font-bold dark:text-white mb-4">AI Feedback Analyzer</h1>
+        <p className="text-lg  dark:text-gray-300 max-w-3xl mx-auto">
           Enter customer feedback below and our AI will analyze the sentiment, identify key topics, and provide actionable insights.
         </p>
       </div>
@@ -86,7 +86,7 @@ export default function Feedback() {
       <div className="grid md:grid-cols-2 gap-8">
         <div>
           <div className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-lg">
-            <h2 className="text-xl font-semibold mb-4 flex items-center">
+            <h2 className="text-xl font-semibold mb-4 flex items-center text-blue-500">
               <MessageSquare className="mr-2 h-5 w-5 text-blue-500" />
               Submit Feedback
             </h2>
@@ -127,7 +127,7 @@ export default function Feedback() {
                   <button
                     key={index}
                     onClick={() => useExample(example)}
-                    className="text-left text-sm p-2 w-full bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 rounded-lg transition-colors duration-200"
+                    className="text-left text-sm p-2 w-full text-black bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 rounded-lg transition-colors duration-200"
                   >
                     {example}
                   </button>
