@@ -1,13 +1,11 @@
 "use client";
 
 import { createContext, useContext, useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
 import { getSession, signIn, signOut } from "next-auth/react";
 
 const SessionContext = createContext();
 
 export function SessionWrapper({ children }) {
-  const router = useRouter();
   const [session, setSession] = useState(null);
   const [loading, setLoading] = useState(true);
 
@@ -32,7 +30,7 @@ export function SessionWrapper({ children }) {
   const logout = async () => {
     await signOut({ redirect: false });
     setSession(null);
-    router.push("/login"); // ✅ Redirect to login after logout
+    window.location.reload(); // Force refresh to clear session cache
   };
 
   return (

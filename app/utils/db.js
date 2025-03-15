@@ -9,7 +9,7 @@ if (!MONGODB_URI) {
 const connectDB = async () => {
   if (mongoose.connection.readyState >= 1) return;
   await mongoose.connect(MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true });
-  console.log(" MongoDB Connected");
+  console.log("✅ MongoDB Connected");
 };
 
 export default connectDB;
