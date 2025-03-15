@@ -17,10 +17,19 @@ export default function Login() {
 
   useEffect(() => {
     if (!sessionLoading && session) {
-      success("Login successful!");
-      setTimeout(() => router.push("/dashboard"), 1000);
+      // ✅ Check if localStorage already has a success notification
+      const hasNotified = sessionStorage.getItem("loginSuccess");
+      if (!hasNotified) {
+        success("Login successful!");
+        sessionStorage.setItem("loginSuccess", "true"); // ✅ Prevent duplicate notifications
+      }
+  
+      setTimeout(() => {
+        router.replace("/dashboard");
+      }, 500);
     }
   }, [session, sessionLoading, router, success]);
+  
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -30,21 +39,18 @@ export default function Login() {
       const result = await login(email, password);
       if (result.error) {
         showError(result.error);
+        setLoading(false);
       }
     } catch (err) {
       showError("An error occurred during login. Please try again.");
+      setLoading(false);
     }
-
-    setLoading(false);
   };
 
   if (sessionLoading) {
     return (
       <div className="flex items-center justify-center min-h-[70vh]">
-        <div className="text-center">
-          <Loader2 className="h-12 w-12 animate-spin mx-auto text-blue-500 mb-4" />
-          <p className="text-lg text-gray-600 dark:text-gray-300">Loading...</p>
-        </div>
+        <Loader2 className="h-12 w-12 animate-spin text-blue-500" />
       </div>
     );
   }
@@ -56,9 +62,6 @@ export default function Login() {
           <div className="text-center">
             <h1 className="text-2xl font-bold mb-4 text-gray-900 dark:text-white">Welcome, {session.user.email}!</h1>
             <p className="text-gray-600 dark:text-gray-300 mb-4">You are now logged in.</p>
-            <div className="flex justify-center">
-              <Loader2 className="h-8 w-8 animate-spin text-blue-500" />
-            </div>
             <p className="text-sm text-gray-500 dark:text-gray-400 mt-4">Redirecting to dashboard...</p>
           </div>
         ) : (
@@ -74,9 +77,7 @@ export default function Login() {
                   Email Address
                 </label>
                 <div className="relative">
-                  <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                    <Mail className="h-5 w-5 text-gray-400" />
-                  </div>
+                  <Mail className="absolute inset-y-0 left-0 pl-3 h-5 w-5 text-gray-400" />
                   <input
                     id="email"
                     type="email"
@@ -94,9 +95,7 @@ export default function Login() {
                   Password
                 </label>
                 <div className="relative">
-                  <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                    <Lock className="h-5 w-5 text-gray-400" />
-                  </div>
+                  <Lock className="absolute inset-y-0 left-0 pl-3 h-5 w-5 text-gray-400" />
                   <input
                     id="password"
                     type="password"
@@ -112,30 +111,12 @@ export default function Login() {
               <button
                 type="submit"
                 disabled={loading}
-                className="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded-md transition-colors duration-200 flex items-center justify-center"
+                className="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded-md flex items-center justify-center"
               >
-                {loading ? (
-                  <>
-                    <Loader2 className="animate-spin h-5 w-5 mr-2" />
-                    Signing in...
-                  </>
-                ) : (
-                  <>
-                    <LogIn className="h-5 w-5 mr-2" />
-                    Sign In
-                  </>
-                )}
+                {loading ? <Loader2 className="animate-spin h-5 w-5 mr-2" /> : <LogIn className="h-5 w-5 mr-2" />}
+                {loading ? "Signing in..." : "Sign In"}
               </button>
             </form>
-
-            <div className="mt-6 text-center">
-              <p className="text-gray-600 dark:text-gray-400">
-                Don't have an account?{" "}
-                <Link href="/signup" className="text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300">
-                  Sign up
-                </Link>
-              </p>
-            </div>
           </>
         )}
       </div>

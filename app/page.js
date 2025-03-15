@@ -180,11 +180,6 @@ export default function Home() {
                 Sign Up Free <ArrowRight size={18} />
               </button>
             </Link>
-            <Link href="/contact">
-              <button className="px-8 py-3 rounded-lg text-lg border border-gray-700 hover:bg-gray-800 transition-colors duration-200">
-                Contact Sales
-              </button>
-            </Link>
           </div>
           <p className="mt-4 text-sm text-gray-400">No credit card required. Free plan includes 100 feedback analyses per month.</p>
         </div>

@@ -29,10 +29,6 @@ export default function Navbar() {
                   <Home size={18} />
                   <span>Home</span>
                 </Link>
-                <Link href="/about" className="flex items-center space-x-1 hover:text-blue-500 transition-colors duration-200">
-                  <Info size={18} />
-                  <span>About</span>
-                </Link>
                 <Link href="/dashboard" className="flex items-center space-x-1 hover:text-blue-500 transition-colors duration-200">
                   <BarChart2 size={18} />
                   <span>Dashboard</span>
@@ -40,10 +36,6 @@ export default function Navbar() {
                 <Link href="/feedback" className="flex items-center space-x-1 hover:text-blue-500 transition-colors duration-200">
                   <MessageSquare size={18} />
                   <span>Feedback</span>
-                </Link>
-                <Link href="/contact" className="flex items-center space-x-1 hover:text-blue-500 transition-colors duration-200">
-                  <Mail size={18} />
-                  <span>Contact</span>
                 </Link>
                 <button 
                   onClick={logout} 
@@ -85,10 +77,6 @@ export default function Navbar() {
                   <Home size={18} />
                   <span>Home</span>
                 </Link>
-                <Link href="/about" className="flex items-center space-x-2 p-2 hover:bg-gray-700 rounded-md transition-colors duration-200">
-                  <Info size={18} />
-                  <span>About</span>
-                </Link>
                 <Link href="/dashboard" className="flex items-center space-x-2 p-2 hover:bg-gray-700 rounded-md transition-colors duration-200">
                   <BarChart2 size={18} />
                   <span>Dashboard</span>
@@ -96,10 +84,6 @@ export default function Navbar() {
                 <Link href="/feedback" className="flex items-center space-x-2 p-2 hover:bg-gray-700 rounded-md transition-colors duration-200">
                   <MessageSquare size={18} />
                   <span>Feedback</span>
-                </Link>
-                <Link href="/contact" className="flex items-center space-x-2 p-2 hover:bg-gray-700 rounded-md transition-colors duration-200">
-                  <Mail size={18} />
-                  <span>Contact</span>
                 </Link>
                 <button 
                   onClick={logout} 
