@@ -23,7 +23,7 @@ export function SessionWrapper({ children }) {
   const login = async (email, password) => {
     const result = await signIn("credentials", { redirect: false, email, password });
     if (!result.error) {
-      const newSession = await getSession(); // ✅ Refresh session after login
+      const newSession = await getSession(); //  Refresh session after login
       setSession(newSession);
     }
     return result;
@@ -32,7 +32,7 @@ export function SessionWrapper({ children }) {
   const logout = async () => {
     await signOut({ redirect: false });
     setSession(null);
-    router.push("/login"); // ✅ Ensure logout redirects properly
+    router.push("/login"); //  Ensure logout redirects properly
   };
 
   return (

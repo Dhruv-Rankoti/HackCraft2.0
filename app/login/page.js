@@ -17,11 +17,11 @@ export default function Login() {
 
   useEffect(() => {
     if (!sessionLoading && session) {
-      // ✅ Check if localStorage already has a success notification
+      //  Check if localStorage already has a success notification
       const hasNotified = sessionStorage.getItem("loginSuccess");
       if (!hasNotified) {
         success("Login successful!");
-        sessionStorage.setItem("loginSuccess", "true"); // ✅ Prevent duplicate notifications
+        sessionStorage.setItem("loginSuccess", "true"); //  Prevent duplicate notifications
       }
 
       setTimeout(() => {

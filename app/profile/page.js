@@ -10,7 +10,7 @@ export default function Profile() {
 
   useEffect(() => {
     if (!loading && !session) {
-      router.push("/login"); // ✅ Redirect to login if not authenticated
+      router.push("/login"); //  Redirect to login if not authenticated
     }
   }, [session, loading, router]);
 
