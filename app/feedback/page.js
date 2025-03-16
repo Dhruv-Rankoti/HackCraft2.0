@@ -188,6 +188,16 @@ export default function Feedback() {
                     </ul>
                   </div>
                 )}
+
+                {/* Customer Response */}
+                {result.customerResponse && (
+                  <div className="p-4 bg-gray-50 dark:bg-gray-700 rounded-lg">
+                    <h3 className="font-medium mb-3">Response to Customer</h3>
+                    <div className="p-3 bg-blue-50 dark:bg-blue-900/30 border-l-4 border-blue-500 rounded text-gray-700 dark:text-gray-300">
+                      {result.customerResponse}
+                    </div>
+                  </div>
+                )}
               </div>
 
               <button
