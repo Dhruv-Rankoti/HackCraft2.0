@@ -1,3 +1,6 @@
+import connectDB from "@/app/utils/db";
+import ResponseModel from "@/app/models/Response";
+
 export async function POST(req) {
   try {
     const { feedback } = await req.json();
@@ -67,19 +70,45 @@ export async function POST(req) {
       
       // Try to extract JSON from the response
       let jsonMatch = resultText.match(/\{[\s\S]*\}/);
+      let analysisResult;
+      
       if (jsonMatch) {
-        const analysisResult = JSON.parse(jsonMatch[0]);
-        return Response.json(analysisResult);
+        analysisResult = JSON.parse(jsonMatch[0]);
+      } else {
+        // Fallback if parsing fails
+        analysisResult = { 
+          sentiment: "Neutral", 
+          confidence: 50,
+          topics: ["Unknown"],
+          recommendations: ["Could not analyze feedback properly."],
+          customerResponse: "Thank you for your feedback. We appreciate you taking the time to share your thoughts with us."
+        };
       }
       
-      // Fallback if parsing fails
-      return Response.json({ 
-        sentiment: "Neutral", 
-        confidence: 50,
-        topics: ["Unknown"],
-        recommendations: ["Could not analyze feedback properly."],
-        customerResponse: "Thank you for your feedback. We appreciate you taking the time to share your thoughts with us."
-      });
+      // Save the response to MongoDB
+      try {
+        // Connect to the database
+        await connectDB();
+        
+        // Create a new response document
+        const newResponse = new ResponseModel({
+          feedback: feedback,
+          sentiment: analysisResult.sentiment,
+          confidence: analysisResult.confidence,
+          topics: analysisResult.topics,
+          recommendations: analysisResult.recommendations,
+          customerResponse: analysisResult.customerResponse
+        });
+        
+        // Save to database
+        await newResponse.save();
+        console.log("Response saved to database");
+      } catch (dbError) {
+        console.error("Error saving to database:", dbError);
+        // Continue processing even if database save fails
+      }
+      
+      return Response.json(analysisResult);
     } catch (parseError) {
       console.error("Error parsing Gemini response:", parseError);
       return Response.json({ error: "Failed to parse AI response." }, { status: 500 });

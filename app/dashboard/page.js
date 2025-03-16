@@ -56,40 +56,84 @@ export default function Dashboard() {
   const fetchSentimentData = async () => {
     try {
       const response = await fetch(`/api/sentiment-stats?timeRange=${timeRange}`);
+      if (!response.ok) {
+        console.error(`Sentiment stats API error: ${response.status} ${response.statusText}`);
+        const text = await response.text();
+        console.error(`Response content: ${text.substring(0, 200)}...`);
+        setSentimentData([
+          { name: "Positive", count: 0, percentage: 0 },
+          { name: "Neutral", count: 0, percentage: 0 },
+          { name: "Negative", count: 0, percentage: 0 }
+        ]);
+        return;
+      }
       const data = await response.json();
-      setSentimentData(data);
+      setSentimentData(data.length > 0 ? data : [
+        { name: "Positive", count: 0, percentage: 0 },
+        { name: "Neutral", count: 0, percentage: 0 },
+        { name: "Negative", count: 0, percentage: 0 }
+      ]);
     } catch (error) {
       console.error("Error fetching sentiment data:", error);
+      setSentimentData([
+        { name: "Positive", count: 0, percentage: 0 },
+        { name: "Neutral", count: 0, percentage: 0 },
+        { name: "Negative", count: 0, percentage: 0 }
+      ]);
     }
   };
 
   const fetchTrendData = async () => {
     try {
       const response = await fetch(`/api/trends?timeRange=${timeRange}`);
+      if (!response.ok) {
+        console.error(`Trends API error: ${response.status} ${response.statusText}`);
+        const text = await response.text();
+        console.error(`Response content: ${text.substring(0, 200)}...`);
+        setTrendData([]);
+        return;
+      }
       const data = await response.json();
       setTrendData(data);
     } catch (error) {
       console.error("Error fetching trend data:", error);
+      setTrendData([]);
     }
   };
 
   const fetchTopicData = async () => {
     try {
       const response = await fetch(`/api/topics?timeRange=${timeRange}`);
+      if (!response.ok) {
+        console.error(`Topics API error: ${response.status} ${response.statusText}`);
+        const text = await response.text();
+        console.error(`Response content: ${text.substring(0, 200)}...`);
+        setTopicData([]);
+        return;
+      }
       const data = await response.json();
       setTopicData(data);
     } catch (error) {
       console.error("Error fetching topic data:", error);
+      setTopicData([]);
     }
   };
 
   const fetchRecentFeedback = async () => {
     try {
       const response = await fetch("/api/recent-feedback");
+      if (!response.ok) {
+        console.error(`Recent feedback API error: ${response.status} ${response.statusText}`);
+        const text = await response.text();
+        console.error(`Response content: ${text.substring(0, 200)}...`);
+        setRecentFeedback([]);
+        return;
+      }
       const data = await response.json();
       setRecentFeedback(data);
     } catch (error) {
       console.error("Error fetching recent feedback:", error);
+      setRecentFeedback([]);
     }
   };
 
