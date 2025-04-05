@@ -4,15 +4,16 @@ const path = require("path");
 /**
  * Analyzes sentiment using the Python model
  * @param {string} review - The text to analyze
- * @param {number|null} price - Optional price for enhanced analysis
+ * @param {number|null} rating - Optional rating for enhanced analysis
+ * 
  * @returns {Promise<Object>} - Sentiment analysis result
  */
-async function analyzeSentimentWithModel(review, price = null) {
+async function analyzeSentimentWithModel(review, rating = null) {
   return new Promise((resolve, reject) => {
     const pythonProcess = spawn("python", [
-      path.join(process.cwd(), "app/model/untitled4.py"),
+      path.join(process.cwd(), "app/model/prediction.py"),
       review,
-      price !== null ? price.toString() : "",
+      rating !== null ? rating.toString() : "",
     ]);
 
     let result = "";
@@ -41,10 +42,17 @@ async function analyzeSentimentWithModel(review, price = null) {
           const lines = result.trim().split("\n");
           let sentiment = "Neutral";
           let confidence = 50;
+          let rating = 0;
 
           for (const line of lines) {
             if (line.includes("Sentiment:")) {
               sentiment = line.split("Sentiment:")[1].trim();
+            }
+            if (line.includes("Rating:")) {
+              const ratingMatch = line.match(
+                /Rating: (\d)/
+              );
+              rating = parseFloat(ratingMatch[1]);
             }
             if (line.includes("Confidence level:")) {
               const confidenceMatch = line.match(
@@ -59,6 +67,7 @@ async function analyzeSentimentWithModel(review, price = null) {
           resolve({
             sentiment: sentiment,
             confidence: confidence,
+            rating: rating,
           });
         } catch (e) {
           console.error("Failed to parse Python output:", e);

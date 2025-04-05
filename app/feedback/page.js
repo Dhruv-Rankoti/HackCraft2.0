@@ -159,6 +159,9 @@ export default function Feedback() {
                       <div className="text-sm text-gray-500 dark:text-gray-400">
                         Confidence: {result.confidence}%
                       </div>
+                      <div className="text-sm text-gray-500 dark:text-gray-400">
+                        Rating: {result.rating} ⭐
+                      </div>
                     </div>
                   </div>
                 </div>
