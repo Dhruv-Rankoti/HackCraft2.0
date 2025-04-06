@@ -111,7 +111,9 @@ export default function Dashboard() {
         setTopicData([]);
         return;
       }
+      console.log({response});
       const data = await response.json();
+      console.log(data);
       setTopicData(data);
     } catch (error) {
       console.error("Error fetching topic data:", error);

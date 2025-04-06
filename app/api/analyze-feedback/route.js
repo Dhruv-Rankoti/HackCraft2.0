@@ -14,7 +14,7 @@ const FALLBACK_RESPONSES = {
 
 export async function POST(req) {
   try {
-    const { feedback, price } = await req.json();
+    const { feedback, price, rating } = await req.json();
 
     if (!feedback || feedback.length < 3) {
       return Response.json(
@@ -24,7 +24,7 @@ export async function POST(req) {
     }
 
     // Step 1: Analyze sentiment using the original ML model
-    const sentimentResult = await analyzeSentimentWithModel(feedback, price);
+    const sentimentResult = await analyzeSentimentWithModel(feedback, price, rating);
     console.log("Sentiment analysis result:", sentimentResult);
 
     // Generate a fallback response based on the sentiment
@@ -109,6 +109,7 @@ export async function POST(req) {
     const result = {
       sentiment: sentimentResult.sentiment,
       confidence: sentimentResult.confidence,
+      rating: sentimentResult.rating,
       customerResponse: customerResponse,
       offline: !apiCallSuccessful,
     };
@@ -122,6 +123,7 @@ export async function POST(req) {
         price: price || null,
         sentiment: result.sentiment,
         confidence: result.confidence,
+        rating: sentimentResult.rating,
         topics: [],
         recommendations: [],
         customerResponse: result.customerResponse,

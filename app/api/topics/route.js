@@ -54,6 +54,7 @@ export async function GET(req) {
       const topicCounts = {};
       responses.forEach(response => {
         if (Array.isArray(response.topics)) {
+          console.log(response)
           response.topics.forEach(topic => {
             if (topic) {
               const normalizedTopic = topic.trim();
@@ -71,8 +72,8 @@ export async function GET(req) {
         count
       })).sort((a, b) => b.count - a.count);
       
-      // Take the top 10 topics
-      const topTopics = topicsArray.slice(0, 10);
+      // Take the top 5 topics
+      const topTopics = topicsArray.slice(0, 5);
       
       console.log(`Returning ${topTopics.length} topics`);
       return Response.json(topTopics);
