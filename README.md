@@ -1,36 +1,120 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# AI-Feedback-Analyzer
 
-## Getting Started
+**AI-Feedback-Analyzer** is a full-stack web application built with **Next.js**, designed to collect, analyze, and visualize user feedback using AI. It leverages modern tools such as Recharts for data visualization, Recoil for state management, and Mongoose for MongoDB interaction. The project also integrates NextAuth for authentication.
 
-First, run the development server:
+## 🌐 Live Demo
+
+👉 [Check out the live site](https://ai-feedback-analyzer-9rew.vercel.app)
+
+---
+
+## ✨ Features
+
+- ✍️ **Feedback Collection**: Users can submit feedback through a clean and modern UI
+- 🤖 **AI Analysis** *(planned or inferred)*: Could integrate OpenAI for sentiment analysis or summarization
+- 📊 **Visual Reports**: Displays analytical insights using Recharts
+- 🔐 **Authentication**: Handled via NextAuth
+- ☁️ **Database**: MongoDB + Mongoose for efficient data storage and querying
+
+---
+
+## 🚀 Tech Stack
+
+| Area | Technology |
+|------|------------|
+| Frontend | Next.js, React 19, Tailwind CSS |
+| Backend | Node.js, MongoDB (via Mongoose) |
+| State Mgmt | Recoil |
+| Auth | NextAuth |
+| Visualization | Recharts |
+| Styling | Tailwind CSS, Emotion |
+| Utilities | Axios, bcryptjs |
+
+---
+
+## 📦 Installation
+
+### 1. Clone the repository
+
+```bash
+git clone https://github.com/Dhruv-Rankoti/AI-Feedback-Analyzer.git
+cd AI-Feedback-Analyzer
+```
+
+### 2. Install dependencies
+
+```bash
+npm install
+```
+
+### 3. Configure environment variables
+
+Create a `.env.local` file in the root directory and add the following:
+
+```env
+MONGODB_URI=your_mongodb_connection_string
+NEXTAUTH_SECRET=your_auth_secret
+NEXTAUTH_URL=http://localhost:3000
+OPENAI_API_KEY=your_openai_key_if_used
+```
+
+### 4. Run the development server
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open your browser and go to `http://localhost:3000`
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+---
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 📁 Project Structure
 
-## Learn More
+```
+.
+├── components/       # Reusable React components
+├── pages/            # Next.js pages and API routes
+├── public/           # Static assets
+├── styles/           # TailwindCSS styles (if any)
+├── .env.local        # Local environment variables
+├── package.json      # Dependencies and scripts
+```
 
-To learn more about Next.js, take a look at the following resources:
+---
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 🧪 Scripts
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```bash
+npm run dev       # Start development server with Turbopack
+npm run build     # Build for production
+npm run start     # Start production server
+npm run lint      # Run ESLint checks
+```
 
-## Deploy on Vercel
+---
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## 🛠 Config Highlights
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- **ESLint**: Configured with `next/core-web-vitals`
+- **TailwindCSS**: Configured with `tailwind.config.js` and PostCSS
+- **Aliases**: `@/*` path shortcuts enabled via `jsconfig.json`
+
+---
+
+## 🤝 Contributing
+
+Contributions are welcome! To contribute:
+
+1. Fork the repository
+2. Create your feature branch: `git checkout -b feature/feature-name`
+3. Commit your changes: `git commit -m 'Add new feature'`
+4. Push to the branch: `git push origin feature/feature-name`
+5. Open a pull request
+
+---
+
+## 📄 License
+
+This project is licensed under the MIT License.
+
+---
